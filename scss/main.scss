@@ -1,0 +1,192 @@
+*{
+    font-family: 'VT323', monospace;
+    color: #00FF00;
+}
+html, body {
+    height:100vh;
+    background-color: black;
+}
+
+
+.gameScreen{
+    height: 90vh;
+    width: 70vw;
+    display:flex;
+    flex-direction: column;
+    margin: auto;
+
+}
+.row{
+    height:6%;
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    
+}
+.col{
+    height: 100%;
+    width: 6.5%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100%;
+}
+.t{
+    height: 100%;
+    width: 93.5%;
+    vertical-align: middle;
+    line-height: 100%;
+}
+.inputs{
+    height:6%;
+    width: 100%;
+    display: flex;
+}
+
+input{
+    padding: none;
+    margin: none;
+    height: 100%;
+    width: 93.5%;
+    background: transparent;
+    border:none;
+    outline: none;
+    font-size: 150%;
+    transform:translate3d(1.2%,18%,0);
+}
+.output{
+    height: 100%;
+    width: 93.5%;
+}
+#outputs{
+    color:#767676;
+    font-size: 150%;
+    transform:translate3d(1.2%,18%,0);
+}
+.wrong{
+    color:red;
+    animation-name: wrong;
+    animation-duration: 0.2s;
+}
+.wrongNoRed{
+    animation-name: wrong;
+    animation-duration: 0.2s;
+}
+@keyframes wrong{
+    0% {transform:translate3d(0.6%,18%,0)}
+    33.3% {transform:translate3d(1.8%,18%,0)}
+    66.6% {transform:translate3d(0.6%,18%,0)}
+    100% {transform:translate3d(1.2%,18%,0)}
+}
+
+@mixin mediaSm{
+    @media screen and (max-width: 500px) {
+        @content;
+    }
+}
+
+@mixin mediaMd{
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mediaLg{
+    @media screen and (min-width: 769px) and (max-width: 1170px) {
+        @content;
+    }
+}
+
+@mixin mediaXLg{
+    @media screen and (min-width: 1171px) {
+        @content;
+    }
+}
+
+//Wide screen
+@include mediaXLg {
+
+}
+
+//Desktop & Laptop
+@include mediaLg {
+    .a{
+        justify-content: space-between;
+        .col{
+            width:9%;
+        }
+        .space0{
+            width: 6.5%;
+        }
+        .space1{
+            width: 1%;
+        }
+        .space2{
+            width: 2%;
+        }
+        .space3{
+            width: 2%;
+        }
+        .space4{
+            width: 6.5%;
+        }
+    }
+
+}
+
+//Tablet & Small laptop
+@include mediaMd {
+    .gameScreen{
+        width: 90vw;
+    }
+    .a{
+        justify-content: space-between;
+        .col{
+            width:9%;
+        }
+        .space0{
+            width: 6.5%;
+        }
+        .space1{
+            width: 1%;
+        }
+        .space2{
+            width: 2%;
+        }
+        .space3{
+            width: 2%;
+        }
+        .space4{
+            width: 6.5%;
+        }
+    }
+}
+
+
+//Smartphones
+@include mediaSm {
+    .gameScreen{
+        width:95vw;
+    }
+    .a{
+        justify-content: space-between;
+        .col{
+            width:9%;
+        }
+        .space0{
+            width: 6.5%;
+        }
+        .space1{
+            width: 1%;
+        }
+        .space2{
+            width: 2%;
+        }
+        .space3{
+            width: 2%;
+        }
+        .space4{
+            width: 6.5%;
+        }
+    }
+}
+

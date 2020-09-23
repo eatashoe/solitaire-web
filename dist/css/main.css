@@ -1,59 +1,129 @@
-*{
-    font-family: 'VT323', monospace;
-    color: #00FF00;
-}
+* {
+  font-family: 'VT323', monospace;
+  color: #00FF00; }
+
 html, body {
-    height:100vh;
-    background-color: black;
-}
+  height: 100vh;
+  background-color: black; }
 
+.gameScreen {
+  height: 90vh;
+  width: 70vw;
+  display: flex;
+  flex-direction: column;
+  margin: auto; }
 
-.gameScreen{
-    height: 90vh;
-    width: 70vw;
-    display:flex;
-    flex-direction: column;
-    margin: auto;
+.row {
+  height: 6%;
+  width: 100%;
+  display: flex;
+  flex-direction: row; }
 
-}
-.row{
-    height:6%;
-    width:100%;
-    display:flex;
-    flex-direction: row;
-    
-}
-.col{
-    height: 100%;
-    width: 6.5%;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 100%;
-}
-.t{
-    height: 100%;
-    width: 93.5%;
-    vertical-align: middle;
-    line-height: 100%;
-}
-.inputcol{
-    height: 50%;
-    width:6.5%;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 100%;
-}
-.inputs{
-    height:12%;
-    width: 100%;
-    display: flex;
-}
-input{
-    height: 50%;
-    width: 93.5%;
-    background: transparent;
-    border:none;
-    outline: none;
-    font-size: 150%;
-    transform:translate3d(1.2%,18%,0)
-}
+.col {
+  height: 100%;
+  width: 6.5%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 100%; }
+
+.t {
+  height: 100%;
+  width: 93.5%;
+  vertical-align: middle;
+  line-height: 100%; }
+
+.inputs {
+  height: 6%;
+  width: 100%;
+  display: flex; }
+
+input {
+  padding: none;
+  margin: none;
+  height: 100%;
+  width: 93.5%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 150%;
+  transform: translate3d(1.2%, 18%, 0); }
+
+.output {
+  height: 100%;
+  width: 93.5%; }
+
+#outputs {
+  color: #767676;
+  font-size: 150%;
+  transform: translate3d(1.2%, 18%, 0); }
+
+.wrong {
+  color: red;
+  animation-name: wrong;
+  animation-duration: 0.2s; }
+
+.wrongNoRed {
+  animation-name: wrong;
+  animation-duration: 0.2s; }
+
+@keyframes wrong {
+  0% {
+    transform: translate3d(0.6%, 18%, 0); }
+  33.3% {
+    transform: translate3d(1.8%, 18%, 0); }
+  66.6% {
+    transform: translate3d(0.6%, 18%, 0); }
+  100% {
+    transform: translate3d(1.2%, 18%, 0); } }
+
+@media screen and (min-width: 769px) and (max-width: 1170px) {
+  .a {
+    justify-content: space-between; }
+    .a .col {
+      width: 9%; }
+    .a .space0 {
+      width: 6.5%; }
+    .a .space1 {
+      width: 1%; }
+    .a .space2 {
+      width: 2%; }
+    .a .space3 {
+      width: 2%; }
+    .a .space4 {
+      width: 6.5%; } }
+
+@media screen and (max-width: 768px) {
+  .gameScreen {
+    width: 90vw; }
+  .a {
+    justify-content: space-between; }
+    .a .col {
+      width: 9%; }
+    .a .space0 {
+      width: 6.5%; }
+    .a .space1 {
+      width: 1%; }
+    .a .space2 {
+      width: 2%; }
+    .a .space3 {
+      width: 2%; }
+    .a .space4 {
+      width: 6.5%; } }
+
+@media screen and (max-width: 500px) {
+  .gameScreen {
+    width: 95vw; }
+  .a {
+    justify-content: space-between; }
+    .a .col {
+      width: 9%; }
+    .a .space0 {
+      width: 6.5%; }
+    .a .space1 {
+      width: 1%; }
+    .a .space2 {
+      width: 2%; }
+    .a .space3 {
+      width: 2%; }
+    .a .space4 {
+      width: 6.5%; } }

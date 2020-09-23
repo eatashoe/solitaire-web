@@ -18,7 +18,9 @@ var row5 = document.getElementById('row5');
 var row6 = document.getElementById('row6');
 var row7 = document.getElementById('row7');
 var input = document.querySelector('input');
+var output = document.getElementById('outputs');
 
+var copy = new CardStack('s');
 var deck = new CardStack('s');
 var stock = new CardStack('s');
 var waste = new CardStack('w');
@@ -62,7 +64,7 @@ function initialize(){
     }
     
     deck.cardStack.sort(() => Math.random() - 0.5);
-    
+    copy.cardStack = [...deck.cardStack];
     for(let x = 0; x < 24; x++){
             stock.push(deck.pop());
     }
@@ -131,6 +133,9 @@ function resetBoard(){
     t5.cardStack.length = 0;
     t6.cardStack.length = 0;
     t7.cardStack.length = 0;
+    correctInputs = [];
+    inputList = [];
+    inputCount = 0;
 }
 
 function render(){
@@ -168,10 +173,13 @@ function render(){
     row3.innerHTML = t3.printStack(t3.type);
     row2.innerHTML = t2.printStack(t2.type); 
     row1.innerHTML = t1.printStack(t1.type);
+
     
 }
 function winner(){
-    if(f1.size() == 13 && f2.size() == 13 && f3.size() == 13 && f4.size() == 13){
+    let x = 0;
+    copy.cardStack.forEach(element => (element.isFaceUp) ? x++:x);
+    if(x == 52){
         return true;
     }
     else{return false;}
@@ -183,10 +191,14 @@ function play(inputs){
 
         case ('draw'):
             if(stock.isEmpty() && waste.isEmpty()){
-                window.console.log("No more cards to draw.");
+                output.innerHTML = "No more cards to draw.";
             }
             else if(!stock.isEmpty()){
                 waste.push(stock.pop());
+                correctInputs.push(input.value);
+                input.value='';
+                output.innerHTML = '';
+                
             }
             else{
                 let size = waste.size();
@@ -194,6 +206,10 @@ function play(inputs){
                     stock.push(waste.pop());
                 }
                 waste.push(stock.pop());
+                correctInputs.push(input.value);
+                input.value='';
+                output.innerHTML = '';
+                
             }
                 break;
 
@@ -203,25 +219,41 @@ function play(inputs){
                 if(inputs[1]==="w1"){
 
                     if(waste.isEmpty()){
-                        window.console.log("There are no cards in W1.");
+                        output.innerHTML = "There are no cards in W1.";
+                        input.classList.add('wrong');
+                        setTimeout(function (){
+                        input.classList.remove('wrong');
+                        }, 200);
                     }
                     else if(inputs[2].substring(0, 1)==="f"){
                         if(piles[inputs[2]].isEmpty()){
                             if(piles[inputs[1]].peek().value === 1){
                                 piles[inputs[2]].push(piles[inputs[1]].pop());
                                 piles[inputs[2]].peek().setFaceUp();
+                                correctInputs.push(input.value);
+                                input.value='';
+                                output.innerHTML = '';
+                                
                             }
                             else{
-                                window.console.log("You cannot move this.");
+                                input.classList.add('wrong');
+                                setTimeout(function (){input.classList.remove('wrong');}, 200);
+                                output.innerHTML = "You cannot move this.";
                             }
                         }
                         else if(piles[inputs[2]].peek().value + 1 === piles[inputs[1]].peek().value && piles[inputs[2]].peek().suit === piles[inputs[1]].peek().suit){
 
                             piles[inputs[2]].push(piles[inputs[1]].pop());
                             piles[inputs[2]].peek().setFaceUp();
+                            correctInputs.push(input.value);
+                            input.value='';
+                            output.innerHTML = '';
+                            
                         }
                         else{
-                            window.console.log("You cannot move this.");
+                            input.classList.add('wrong');
+                            setTimeout(function (){input.classList.remove('wrong');}, 200);
+                            output.innerHTML = "You cannot move this.";
                         }
 
                     }
@@ -230,17 +262,29 @@ function play(inputs){
                             if(piles[inputs[1]].peek().value === 13){
                                 piles[inputs[2]].push(piles[inputs[1]].pop());
                                 piles[inputs[2]].peek().setFaceUp();
+                                correctInputs.push(input.value);
+                                input.value='';
+                                output.innerHTML = '';
+                                
                             }
                             else{
-                                window.console.log("You cannot move this.");
+                                input.classList.add('wrong');
+                                setTimeout(function (){input.classList.remove('wrong');}, 200);
+                                output.innerHTML = "You cannot move this.";
                             }
                         }
                         else if(piles[inputs[2]].peek().value - 1 === piles[inputs[1]].peek().value && ((piles[inputs[2]].peek().isRed())^(piles[inputs[1]].peek().isRed()))){
                             piles[inputs[2]].push(piles[inputs[1]].pop());
                             piles[inputs[2]].peek().setFaceUp();
+                            correctInputs.push(input.value);
+                            input.value='';
+                            output.innerHTML = '';
+                            
                         }
                         else{
-                            window.console.log("You cannot move this.");
+                            input.classList.add('wrong');
+                            setTimeout(function (){input.classList.remove('wrong');}, 200);
+                            output.innerHTML = "You cannot move this.";
                         }
                     }
                 }
@@ -248,24 +292,36 @@ function play(inputs){
 
                     if(piles[inputs[1]].isEmpty()){
                         let name = inputs[1].toUpperCase();
-                        window.console.log("There are no cards in "+ name +".");
+                        output.innerHTML = "There are no cards in "+ name +".";
                     }
                     else if(inputs[2].substring(0,1)==="t"){
                         if(piles[inputs[2]].isEmpty()){
                             if(piles[inputs[1]].peek().value === 13){
                                 piles[inputs[2]].push(piles[inputs[1]].pop());
                                 piles[inputs[2]].peek().setFaceUp();
+                                correctInputs.push(input.value);
+                                input.value='';
+                                output.innerHTML = '';
+                                
                             }
                             else{
-                                window.console.log("You cannot move this.");
+                                input.classList.add('wrong');
+                                setTimeout(function (){input.classList.remove('wrong');}, 200);
+                                output.innerHTML = "You cannot move this.";
                             }
                         }
                         else if(piles[inputs[2]].peek().value - 1 === piles[inputs[1]].peek().value && ((piles[inputs[2]].peek().isRed())^(piles[inputs[1]].peek().isRed()))){
                             piles[inputs[2]].push(piles[inputs[1]].pop());
                             piles[inputs[2]].peek().setFaceUp();
+                            correctInputs.push(input.value);
+                            input.value='';
+                            output.innerHTML = '';
+                            
                         }
                         else{
-                            window.console.log("You cannot move this.");
+                            input.classList.add('wrong');
+                            setTimeout(function (){input.classList.remove('wrong');}, 200);
+                            output.innerHTML = "You cannot move this.";
                         }
                     }
                 }
@@ -273,7 +329,7 @@ function play(inputs){
 
                     if(piles[inputs[1]].isEmpty()){
                         let name = inputs[1].toUpperCase();
-                        window.console.log("There are no cards in "+ name + ".");
+                        output.innerHTML = "There are no cards in "+ name + ".";
                     }
                     else if(inputs[2].substring(0,1)==="f"){
                         if(piles[inputs[2]].isEmpty()){
@@ -284,9 +340,15 @@ function play(inputs){
                                 if(!piles[inputs[1]].isEmpty()){
                                     piles[inputs[1]].peek().setFaceUp();
                                 }
+                                correctInputs.push(input.value);
+                                input.value='';
+                                output.innerHTML = '';
+                                
                             }
                             else{
-                                window.console.log("You cannot move this.");
+                                input.classList.add('wrong');
+                                setTimeout(function (){input.classList.remove('wrong');}, 200);
+                                output.innerHTML = "You cannot move this.";
                             }
                         }
                         else if(piles[inputs[2]].peek().value + 1 === piles[inputs[1]].peek().value && piles[inputs[2]].peek().suit === piles[inputs[1]].peek().suit){
@@ -297,9 +359,15 @@ function play(inputs){
                             if(!piles[inputs[1]].isEmpty()){
                                 piles[inputs[1]].peek().setFaceUp();
                             }
+                            correctInputs.push(input.value);
+                            input.value='';
+                            output.innerHTML = '';
+                            
                         }
                         else{
-                            window.console.log("You cannot move this.");
+                            input.classList.add('wrong');
+                            setTimeout(function (){input.classList.remove('wrong');}, 200);
+                            output.innerHTML = "You cannot move this.";
                         }
 
                     }
@@ -312,9 +380,15 @@ function play(inputs){
                                 if(!piles[inputs[1]].isEmpty()){
                                     piles[inputs[1]].peek().setFaceUp();
                                 }
+                                correctInputs.push(input.value);
+                                input.value='';
+                                output.innerHTML = '';
+                                
                             }
                             else{
-                                window.console.log("You cannot move this.");
+                                input.classList.add('wrong');
+                                setTimeout(function (){input.classList.remove('wrong');}, 200);
+                                output.innerHTML = "You cannot move this.";
                             }
                         }
                         else if(piles[inputs[2]].peek().value - 1 === piles[inputs[1]].peek().value && ((piles[inputs[2]].peek().isRed()) ^ (piles[inputs[1]].peek().isRed()))){
@@ -324,18 +398,30 @@ function play(inputs){
                             if(!piles[inputs[1]].isEmpty()){
                                 piles[inputs[1]].peek().setFaceUp();
                             }
-
+                            correctInputs.push(input.value);
+                            input.value='';
+                            output.innerHTML = '';
+                            
                         }
                         else{
-                            window.console.log("You cannot move this.");
+                            input.classList.add('wrong');
+                            setTimeout(function (){input.classList.remove('wrong');}, 200);
+                            output.innerHTML = "You cannot move this.";
                         }
                     }
+                }
+                else{
+                    input.classList.add('wrong');
+                    setTimeout(function (){
+                        input.classList.remove('wrong');
+                    }, 200);
+                    output.innerHTML = 'Input Error.';
                 }
             }
             else if(inputs.length === 4){
                 if(piles[inputs[1]].isEmpty()){
                     let name = inputs[1].toUpperCase();
-                    window.console.log("There are no cards in "+ name + ".");
+                    output.innerHTML = "There are no cards in "+ name + ".";
                 }
                 else {
                     let temp = new CardStack('t');
@@ -354,8 +440,14 @@ function play(inputs){
                             if (!piles[inputs[1]].isEmpty()) {
                                 piles[inputs[1]].peek().setFaceUp();
                             }
+                            correctInputs.push(input.value);
+                            input.value='';
+                            output.innerHTML = '';
+                            
                         } else {
-                            window.console.log("You cannot move this.");
+                            input.classList.add('wrong');
+                            setTimeout(function (){input.classList.remove('wrong');}, 200);
+                            output.innerHTML = "You cannot move this.";
                         }
                     }
                     else if(piles[inputs[2]].peek().value - 1 === piles[inputs[1]].cardStack[piles[inputs[1]].size() - parseInt(inputs[3])].value && ((piles[inputs[2]].peek().isRed())^(piles[inputs[1]].cardStack[piles[inputs[1]].size() - parseInt(inputs[3])].isRed()))){
@@ -370,17 +462,98 @@ function play(inputs){
                         if(!piles[inputs[1]].isEmpty()){
                             piles[inputs[1]].peek().setFaceUp();
                         }
-
+                        correctInputs.push(input.value);
+                        input.value='';
+                        output.innerHTML = '';
+                        
                     }
                     else{
-                        window.console.log("You cannot move this..");
+                        input.classList.add('wrong');
+                        setTimeout(function (){input.classList.remove('wrong');}, 200);
+                        output.innerHTML = "You cannot move this.";
                     }
                 }
             }
+            else{
+                input.classList.add('wrong');
+                setTimeout(function (){
+                    input.classList.remove('wrong');
+                }, 200);
+                output.innerHTML = 'Input Error.';
+            }
             break;
+            
+        case ('back'):
+            if(correctInputs.length !== 0){
+                let goBack = correctInputs.pop().split(' ');
+                if(goBack[0] == 'draw'){
+                    stock.push(waste.pop());
+                    input.value = '';
+                }
+                else if(goBack[0] == 'move'){
+                    if(goBack[1].substring(0,1)==="f"){
+                        piles[goBack[1]].push(piles[goBack[2]].pop());
+                        input.value = '';
+                    }
+                    else if(goBack[1].substring(0,1)==="t"){
+                        if(goBack[2].substring(0,1)==='t'){
+                            if(goBack.length == 4){
+                                if(piles[goBack[1]].size() > 0 && piles[goBack[1]].peek().isFaceUp){
+                                    piles[goBack[1]].peek().isFaceUp = false;
+                                }
+                                let temp = new CardStack('f');
+                                for (let x = 0; x < parseInt(goBack[3]); x++) {
+                                    temp.push(piles[goBack[2]].pop());
+                                }
+                                for(let x = 0; x < parseInt(goBack[3]); x++){
+                                    piles[goBack[1]].push(temp.pop());
+                                }
+                                input.value = '';
+                            }
+                            else{
+                                if(piles[goBack[1]].size() > 0 && piles[goBack[1]].peek().isFaceUp){
+                                    piles[goBack[1]].peek().isFaceUp = false;
+                                }
+                                piles[goBack[1]].push(piles[goBack[2]].pop());
+                                input.value = '';
+                            }
+                        }
+                        else if(goBack[2].substring(0,1)==='f'){
+                            piles[goBack[1]].push(piles[goBack[2]].pop());
+                            input.value = '';
+                        }
+                    }
+                    else if(goBack[1].substring(0,1)==="w"){
+                        if(goBack[2].substring(0,1)==='f'){
+                            piles[goBack[2]].peek().isFaceUp = false;
+                            piles[goBack[1]].push(piles[goBack[2]].pop());
+                            input.value = '';
+                        }
+                        else if(goBack[2].substring(0,1)==='t'){
+                            piles[goBack[2]].peek().isFaceUp = false;
+                            piles[goBack[1]].push(piles[goBack[2]].pop());
+                            input.value = '';
+                        }
+                    }
+                }
+            }
+            else{
+                input.classList.add('wrong');
+                setTimeout(function (){
+                    input.classList.remove('wrong');
+                }, 200);
+                output.innerHTML = 'Cant go back any further.';
+                input.value='';
+            }
+            break;
+            
         default:
-            window.console.log("WRONG!!!!");
-        
+            input.classList.add('wrong');
+            setTimeout(function (){
+            input.classList.remove('wrong');
+            }, 200);
+            output.innerHTML = 'Input Error.';
+            input.value='';
     }
     render();
 }
@@ -388,32 +561,67 @@ function play(inputs){
 
 initialize();
 let restart = false;
+let correctInputs = [];
+let inputList = [];
+let inputCount = 0;
 
 input.addEventListener('keydown', function(e){
     if(e.keyCode === 13){
-        let inputs = input.value.split(' ');
+        inputList.push(input.value.trim());
+        inputCount++;
+        let inputs = input.value.trim().split(' ');
         window.console.log(inputs);
+        
         if(inputs[0] === 'restart' || restart){
             restart = true;
-            input.placeholder = "Do you want to start a new game? (Y/N): ";
+            input.value = '';
+            output.innerHTML = "Do you want to start a new game? (Y/N): ";
             if(inputs[0].toLowerCase() === 'y'){
                 resetBoard();
                 initialize();
-                input.placeholder = "Enter a command: ";
+                output.innerHTML = "Enter a command: ";
                 restart = false;
             }
             else if(inputs[0].toLowerCase() === 'n'){ 
                 restart = false;
-                input.placeholder = "Enter a command: ";
+                output.innerHTML = "Enter a command: ";
             }
         }
         else if(winner()){
-            input.placeholder = "YOU WON!!! If you want to play again,res type restart.";
+            output.innerHTML = "YOU WON!!! If you want to play again, type 'restart'.";
+            input.value = '';
         }
         else{
-            play(inputs);
+play(inputs);
         }
-        input.value = '';
+
+    }
+    //up
+    if(e.keyCode === 38){
+        if(inputCount !== 0){
+            inputCount--;
+            input.value = inputList[inputCount];
+        }
+        else{
+            input.classList.add('wrongNoRed');
+            setTimeout(function (){
+                input.classList.remove('wrongNoRed');
+            }, 200);
+        }
+    }
+    //down
+    if(e.keyCode === 40){
+        if(inputCount < inputList.length-1){
+            inputCount++;
+            input.value = inputList[inputCount];
+        }
+        else{
+            input.classList.add('wrongNoRed');
+            setTimeout(function (){
+                input.classList.remove('wrongNoRed');
+            }, 200);
+        }
+        
     }
     else{
         window.console.log('typing...');
