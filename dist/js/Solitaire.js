@@ -569,7 +569,7 @@ input.addEventListener('keydown', function(e){
     if(e.keyCode === 13){
         inputList.push(input.value.trim());
         inputCount++;
-        let inputs = input.value.trim().split(' ');
+        let inputs = input.value.toLowerCase().trim().split(' ');
         window.console.log(inputs);
         
         if(inputs[0] === 'restart' || restart){
