@@ -9,6 +9,18 @@
     
 </head>
 <body>
+    <div class='help' id='help'><h1>?</h1></div>
+    <div class='helpBox' id='helpBox'>
+        <h1><u>How to play</u></h1>
+        <h2>Commands: <u>move</u>, <u>draw</u>, <u>undo</u>, <u>restart</u>.</h2>
+        <h2><u>move</u>: moves cards from one block to another.</h2>
+        <h2>(E.g. "move t1 t2" will move a card from T1 to T2,</h2>
+        <h2>"move t1 t2 2" will move the 2 cards from T1 to T2.)</h2>
+        <h2><u>draw</u>: draws a card from the waste pile(W1).</h2>
+        <h2><u>undo</u>: reverses your last command.</h2>
+        <h2><u>restart</u>: restarts the game.</h2>
+        
+    </div>
     <div class="gameScreen">
         <div class="row a">
             <div class="col space0">
@@ -153,7 +165,7 @@
             <input type="text" placeholder="" autofocus>
         </div>
     </div>
-
+    
     <script type="module" src="js/Solitaire.js"></script>
 </body>
 </html>

@@ -57,6 +57,43 @@ input {
   font-size: 150%;
   transform: translate3d(1.2%, 18%, 0); }
 
+.help {
+  position: absolute;
+  transform: translateX(-25px);
+  right: 0;
+  bottom: 0; }
+  .help :hover {
+    transform: scale(1.3);
+    transition: 0.2s ease-in;
+    cursor: pointer; }
+
+.helpBox {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  border: solid  #00FF00 1px;
+  border-radius: 5px;
+  width: 520px;
+  height: 300px;
+  right: 0;
+  bottom: 0;
+  transform: translate3d(-45px, -50px, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background: black; }
+  .helpBox h1 {
+    margin: -45px 0 20px 0;
+    padding-left: 185px; }
+  .helpBox h2 {
+    margin: 0 0 5px 12px;
+    padding-left: 0px; }
+  .helpBox.show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s; }
+
 .wrong {
   color: red;
   animation-name: wrong;
@@ -108,7 +145,12 @@ input {
     .a .space3 {
       width: 2%; }
     .a .space4 {
-      width: 6.5%; } }
+      width: 6.5%; }
+  .helpBox {
+    width: 400px;
+    height: 400px; }
+    .helpBox h1 {
+      padding-left: 133px; } }
 
 @media screen and (max-width: 500px) {
   .gameScreen {
@@ -126,4 +168,21 @@ input {
     .a .space3 {
       width: 2%; }
     .a .space4 {
-      width: 6.5%; } }
+      width: 6.5%; }
+  .helpBox {
+    width: 400px;
+    height: 400px; }
+    .helpBox h1 {
+      padding-left: 133px; } }
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }

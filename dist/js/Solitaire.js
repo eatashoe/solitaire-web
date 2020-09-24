@@ -19,6 +19,9 @@ var row6 = document.getElementById('row6');
 var row7 = document.getElementById('row7');
 var input = document.querySelector('input');
 var output = document.getElementById('outputs');
+var helpbox = document.getElementById('helpBox');
+var help = document.getElementById('help');
+
 
 var copy = new CardStack('s');
 var deck = new CardStack('s');
@@ -628,6 +631,10 @@ play(inputs);
     }
 });
 
+
+help.onclick = function() {
+    helpbox.classList.toggle('show');
+};
 
 
 
