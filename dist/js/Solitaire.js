@@ -486,7 +486,7 @@ function play(inputs){
             }
             break;
             
-        case ('back'):
+        case ('undo'):
             if(correctInputs.length !== 0){
                 let goBack = correctInputs.pop().split(' ');
                 if(goBack[0] == 'draw'){
