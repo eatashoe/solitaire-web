@@ -3,6 +3,8 @@ Console solitaire
 
 Same rules are orignial Solitaire.
 
+[Play](https://lab2-winstongong.netlify.app/)
+
 # --------------How To Play------------------
 
 ## This is a example of a game
